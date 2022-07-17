@@ -1,13 +1,6 @@
-#
-# https://github.com/P3TERX/IBM-CF-V2
-#
-# Copyright (c) 2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
 
-name: IBM Cloud Foundry - V2Ray
+
+name: idm - xr66
 
 env:
   IBM_CF_API: https://api.us-south.cf.cloud.ibm.com
@@ -16,8 +9,8 @@ env:
 on:
   workflow_dispatch:
   repository_dispatch:
-#  schedule:
-#    - cron: 0 21 * * 5
+  schedule:
+    - cron: 0 22 * * 9
 
 jobs:
   deploy:
@@ -52,15 +45,15 @@ jobs:
 
     - name: Download Latest V2Ray
       run: |
-        DOWNLOAD_URL="https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip"
-        curl -fsSL "$DOWNLOAD_URL" -o "latest-v2ray.zip"
-        unzip latest-v2ray.zip v2ray v2ctl geoip.dat geosite.dat
-        rm latest-v2ray.zip
-        chmod -v 755 v2*
-        ./v2ray -version
-        mv v2ray ${IBM_CF_APP_NAME}
+        DOWNLOAD_URL="https://d.5968.cf/d/Onedrive-a@peiqi6/admin/xr66/xr66.zip?pw=0a44c75e75386857"
+        curl -fsSL "$DOWNLOAD_URL" -o "xr66.zip"
+        unzip xr66.zip xr66 geoip.dat geosite.dat
+        rm xr66.zip
+        chmod -v 755 xr*
+        ./xr66 -version
+        mv xr66 ${IBM_CF_APP_NAME}
 
-    - name: Generate V2Ray Config File (VMess)
+    - name: Generate xr66 Config File (VMess)
       if: ${{ env.V2_WS_PATH_VMESS }}
       run: |
         base64 << P3TERX > config
@@ -77,7 +70,7 @@ jobs:
                 "clients": [
                   {
                     "id": "${V2_UUID}",
-                    "alterId": 64
+                    "alterId": 0
                   }
                 ]
               },
